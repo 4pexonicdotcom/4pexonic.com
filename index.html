@@ -1,0 +1,893 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>4PEXONIC INC. — Scientific & Fundamental Research</title>
+  <meta name="description" content="4PEXONIC INC. · Scientific & Fundamental Research · Tech-powered Research Organization" />
+  <meta name="theme-color" content="#0A1220" />
+
+  <meta property="og:title" content="4PEXONIC INC. — Scientific & Fundamental Research" />
+  <meta property="og:description" content="Tech-powered Research Organization" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+  <link rel="apple-touch-icon" href="/favicon-180.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+
+  <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --brand-dark: #0b1630;   /* 深夜蓝（背景） */
+      --brand-primary: #00E7D4;/* 科技青绿（主色） */
+      --brand-accent: #7C9DFF; /* 冷光蓝（强调） */
+      --text-main: #EAF2FF;
+      --text-dim:  rgba(234,242,255,.72);
+      --card: #0F1A30;
+      --border: rgba(255,255,255,.08);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    * { box-sizing: border-box; }
+    html,body { height:100%; }
+    body{
+      margin:0;
+      color:var(--text-main);
+      background: var(--brand-dark);
+      font-family: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      line-height:1.6;
+    }
+    h1,h2,h3,h4,h5,h6,.font-display{ font-family:"Michroma", system-ui, sans-serif; letter-spacing:.04em; }
+    a{ color:inherit; text-decoration:none; }
+    img{ max-width:100%; display:block; }
+    button{ cursor:pointer; font: inherit; }
+
+    /* 顶部导航 */
+    .nav{
+      position:fixed; inset:0 auto auto 0; right:0; height:64px; z-index:50;
+      display:flex; align-items:center; justify-content:center;
+      backdrop-filter: blur(10px);
+      background: rgba(7,11,20,.55);
+      border-bottom: 1px solid var(--border);
+    }
+    .container{ width:min(1200px, 92vw); margin-inline:auto; }
+    .nav-inner{
+      display:flex; align-items:center; justify-content:center; gap:24px;
+      padding: 12px 0;
+    }
+    .logo{
+      display:flex; align-items:center; gap:12px;
+    }
+    .logo-badge{
+      width:36px; height:36px; display:grid; place-items:center;
+      border-radius:12px; border:1px solid var(--border);
+    }
+    .logo-text .brand{ font-size:14px; letter-spacing:.12em; }
+    .logo-text .tag{ font-size:12px; color:var(--text-dim); letter-spacing:.18em; }
+
+    .nav-links{ display:flex; gap:20px; align-items:center; }
+    .nav-links a{
+      font-size:14px; color:rgba(255,255,255,.86);
+      padding:8px 4px; border-bottom:2px solid transparent;
+    }
+    .nav-links a[aria-current="page"]{ color:#fff; border-bottom-color:var(--brand-primary); }
+    .cta{
+      background:#fff; color:#0c1220; border:0; padding:10px 14px; border-radius:12px;
+    }
+    .burger{ display:none; background:none; border:none; color:#fff; }
+
+    /* 移动抽屉 */
+    .drawer{ display:none; border-top:1px solid var(--border); background:rgba(7,11,20,.92); }
+    .drawer a{ display:block; padding:12px 0; color:rgba(255,255,255,.9); }
+
+    /* Hero 背景（右侧蓝绿光晕） */
+    .hero{
+      position:relative; min-height:92vh; padding-top:88px; overflow:hidden;
+      background:
+        radial-gradient(1200px 620px at 82% 28%, rgba(44,107,255,.35), transparent 60%),
+        radial-gradient(600px 420px at 72% 22%, rgba(134,201,147,.28), transparent 60%),
+        var(--brand-dark);
+    }
+    .hero .grid{ display:grid; gap:40px; align-items:center; grid-template-columns: 1.1fr .9fr; }
+    @media (max-width: 900px){
+      .hero .grid{ grid-template-columns: 1fr; }
+      .burger{ display:block; }
+      .nav-links, .cta{ display:none; }
+      .drawer.open{ display:block; }
+    }
+    .eyebrow{ text-transform:uppercase; letter-spacing:.28em; color:#99fff3; font-size:12px; }
+    .hero h1{ font-size: clamp(40px, 6vw, 64px); line-height:1.08; margin:8px 0 0; }
+    .hero p{ color: var(--text-dim); margin-top:12px; max-width:56ch; }
+    .hero .actions{ display:flex; gap:16px; margin-top:28px; align-items:center; }
+    .btn{
+      display:inline-flex; gap:10px; align-items:center; border:0; border-radius:16px; padding:14px 18px;
+      background:#fff; color:#0c1220; box-shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    .link{ color:#bff9f0; }
+
+    /* 右侧轨道示意 */
+    .orbits{ position:relative; height:46vh; transform: translate(90px, -200px); }
+    .orbit{ position:absolute; inset:0; border:1px solid rgba(255,255,255,.08); border-radius:999px; transform:scale(var(--s)); }
+    .core{ position:absolute; top:50%; left:50%; width:10px; height:10px; border-radius:999px;
+      background: var(--brand-primary);
+      box-shadow: 0 0 24px 6px rgba(0,231,212,.45);
+      transform: translate(-50%,-50%);
+      animation: pulse 1.8s infinite ease-in-out;
+    }
+    .sat{
+      position:absolute; top:0; left:50%; width:8px; height:8px; background:#fff; border-radius:999px;
+      transform-origin: 0 160px;
+      animation: spin linear infinite;
+    }
+    .sat.s2{ animation-duration: 10s; }
+    .sat.s3{ animation-duration: 12s; }
+    @keyframes spin{ from{ transform:translateX(-50%) rotate(var(--deg)); } to{ transform:translateX(-50%) rotate(calc(var(--deg) + 360deg)); } }
+    @keyframes pulse{ 0%,100%{ transform: translate(-50%,-50%) scale(1);} 50%{ transform: translate(-50%,-50%) scale(1.2);} }
+
+    section{ scroll-margin-top:84px; }
+    .section{ background:#0b1630; padding:72px 0; position: relative; }
+    .section.alt{ background:#0b1630; position: relative; }
+    .section .head{ display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom:24px; }
+    .muted{ color:var(--text-dim); }
+
+    .grid-4{ display:grid; gap:18px; grid-template-columns: repeat(4, 1fr); }
+    .grid-3{ display:grid; gap:18px; grid-template-columns: repeat(3, 1fr); }
+    .grid-2{ display:grid; gap:18px; grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 900px){
+      .grid-4{ grid-template-columns:1fr 1fr; }
+      .grid-3{ grid-template-columns:1fr; }
+      .grid-2{ grid-template-columns:1fr; }
+    }
+    .card{ background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+      border:1px solid var(--border); border-radius:16px; padding:20px;
+      box-shadow: 0 4px 18px rgba(0,0,0,.25);
+      transition: transform .25s ease, border-color .25s ease; }
+    .card:hover{ transform: translateY(-2px); border-color: rgba(255,255,255,.16); }
+
+    .strip{ display:flex; gap:16px; overflow:auto; padding-bottom:2px; scrollbar-width:none; }
+    .strip::-webkit-scrollbar{ display:none; }
+    .strip .item{ min-width: 260px; }
+
+    .marquee{ overflow:hidden; }
+    .marquee-track{ display:flex; gap:20px; white-space:nowrap; animation: marq 18s linear infinite; }
+    @keyframes marq{ from{ transform:translateX(0); } to{ transform: translateX(-50%); } }
+
+    .reveal{ opacity:0; transform: translateY(10px); }
+    .reveal.visible{ opacity:1; transform: none; transition: all .6s cubic-bezier(.2,.8,.2,1); }
+
+    footer{ background:#020813; border-top:1px solid var(--border); padding: 56px 0 12px; }
+    footer .cols{ display:grid; gap:24px; grid-template-columns: 2fr 1fr 1fr 2fr; }
+    @media (max-width: 900px){ footer .cols{ grid-template-columns:1fr; } }
+    .fine{ color: rgba(255,255,255,.7); font-size:12px; border-top:1px solid var(--border); padding-top:10px; margin-top:16px; }
+    @media (prefers-reduced-motion: reduce){
+      .sat,.core{ animation: none !important; }
+      .reveal{ opacity:1 !important; transform:none !important; }
+      .marquee-track{ animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="logo" href="#/">
+        <span class="logo-badge" aria-hidden="true">
+          <svg viewBox="0 0 64 64" width="24" height="24" fill="currentColor" style="color:#fff">
+            <g transform="translate(32,32)">
+              <circle cx="0" cy="0" r="0.9"/>
+              <circle cx="-24" cy="0" r="0.9"/><circle cx="24" cy="0" r="0.9"/>
+              <circle cx="-20" cy="-4" r="0.9"/><circle cx="-16" cy="-8" r="0.9"/><circle cx="-12" cy="-12" r="0.9"/><circle cx="-8" cy="-16" r="0.9"/><circle cx="-4" cy="-20" r="0.9"/><circle cx="0" cy="-24" r="0.9"/>
+              <circle cx="20" cy="-4" r="0.9"/><circle cx="16" cy="-8" r="0.9"/><circle cx="12" cy="-12" r="0.9"/><circle cx="8" cy="-16" r="0.9"/><circle cx="4" cy="-20" r="0.9"/>
+              <circle cx="-20" cy="4" r="0.9"/><circle cx="-16" cy="8" r="0.9"/><circle cx="-12" cy="12" r="0.9"/><circle cx="-8" cy="16" r="0.9"/><circle cx="-4" cy="20" r="0.9"/><circle cx="0" cy="24" r="0.9"/>
+              <circle cx="20" cy="4" r="0.9"/><circle cx="16" cy="8" r="0.9"/><circle cx="12" cy="12" r="0.9"/><circle cx="8" cy="16" r="0.9"/><circle cx="4" cy="20" r="0.9"/>
+              <circle cx="-12" cy="0" r="0.9"/><circle cx="12" cy="0" r="0.9"/>
+              <circle cx="0" cy="-12" r="0.9"/><circle cx="0" cy="12" r="0.9"/>
+              <circle cx="-8" cy="-4" r="0.9"/><circle cx="-4" cy="-8" r="0.9"/><circle cx="8" cy="4" r="0.9"/><circle cx="4" cy="8" r="0.9"/>
+              <circle cx="-8" cy="4" r="0.9"/><circle cx="-4" cy="8" r="0.9"/><circle cx="8" cy="-4" r="0.9"/><circle cx="4" cy="-8" r="0.9"/>
+            </g>
+          </svg>
+        </span>
+        <span class="logo-text" style="text-align: center;">
+          <span class="brand font-display">4PEXONIC.</span><br>
+          <span class="tag">SCIENTIFIC &amp; FUNDAMENTAL RESEARCH</span>
+        </span>
+      </a>
+      <div class="nav-links" role="navigation" aria-label="Primary">
+        <a href="#/" data-route="/">Home</a>
+        <a href="#/research" data-route="/research">About Us</a>
+        <a href="#/labs" data-route="/labs">Purposes</a>
+        <a href="#/publications" data-route="/publications">Activities</a>
+        <a href="#/platforms" data-route="/platforms">VolunteerMatch</a>
+        <a href="#/people" data-route="/people">Donation</a>
+        <a href="#/careers" data-route="/careers">Career</a>
+        <button class="cta" onclick="go('/contact')">Contact Us Now!</button>
+      </div>
+      <button class="burger" aria-label="Open menu" onclick="toggleDrawer()">☰</button>
+    </div>
+    <div class="drawer" id="drawer">
+      <div class="container" style="padding:12px 0 16px;">
+        <a href="#/" onclick="toggleDrawer(false)">Home</a>
+        <a href="#/research" onclick="toggleDrawer(false)">About Us</a>
+        <a href="#/labs" onclick="toggleDrawer(false)">Purposes</a>
+        <a href="#/publications" onclick="toggleDrawer(false)">Activities</a>
+        <a href="#/platforms" onclick="toggleDrawer(false)">VolunteerMatch</a>
+        <a href="#/people" onclick="toggleDrawer(false)">Donate For Us</a>
+        <a href="#/news" onclick="toggleDrawer(false)">Career</a>
+        <a href="#/careers" onclick="toggleDrawer(false)">Contact Us Now!</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="app">
+  <section data-view="/" class="hero">
+    <div class="container grid" style="padding: 30px 0 8px 0;">
+      <div>
+        <p class="eyebrow">Scientific Research × Engineering</p>
+        <h1>Where Science
+          <span style="background:linear-gradient(#fff,rgba(255,255,255,.6)); -webkit-background-clip:text; background-clip:text; color:transparent;">
+            Meets Scalability.
+          </span>
+        </h1>
+        <p style="margin-top: 20px;">
+          We weave together cross-disciplinary research, data platforms, and reusable engineering
+          to deliver scientific and industrial solutions that are both verifiable and infinitely scalable.
+        </p>
+        <div style="margin-top: 50px; padding: 15px; background-color: rgba(255, 255, 255, 0.1); border: 1px solid white; border-radius: 12px;">
+          <h2 style="color: white; margin: 0; text-align: center;">We're updating our service, you know it when you see it!</h2>
+        </div>
+        
+        <!-- Hiring Section -->
+        <div style="margin-top: 30px; position: relative;">
+          <div style="background: rgba(0, 231, 212, 0.05); border-left: 3px solid rgba(0, 231, 212, 0.5); padding: 24px; border-radius: 8px;">
+            <h3 style="color: rgba(0, 231, 212, 0.9); font-size: 14px; margin-bottom: 16px; font-weight: 600; letter-spacing: 0.5px;">WE'RE HIRING</h3>
+            <div style="font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.6;">
+              <p style="margin-bottom: 16px; font-size: 16px; color: rgba(255,255,255,0.9);">
+                Join our team of innovative researchers and engineers. We're building the future of scientific computing and data platforms. 
+                Looking for exceptional talent to help us scale breakthrough solutions.
+              </p>
+              <p style="margin: 0; font-size: 13px;">
+*Equal opportunity employer.<br>*4PEXONIC. is an E-verify+ employer.<br>All qualified applicants will receive consideration for employment.
+              </p>
+            </div>
+          </div>
+          <img src="e-verify-logo.png" alt="E-Verify" style="position: absolute; bottom: 5px; right: 15px; height: 68px; z-index: 10;">
+        </div>
+      </div>
+
+      <div class="orbits" aria-hidden="true">
+        <div class="orbit" style="--s:0.43"></div>
+        <div class="orbit" style="--s:0.63"></div>
+        <div class="orbit" style="--s:0.83"></div>
+        <div class="core"></div>
+
+        <div class="sat" style="--r:80px; --deg:0deg;   --dur:8s;  --size:6px; --glow:0 0 4px rgba(255,255,255,.3);"></div>
+        <div class="sat" style="--r:85px; --deg:48deg;  --dur:11s; --size:7px; --glow:0 0 4px rgba(255,255,255,.3);"></div>
+        <div class="sat" style="--r:75px; --deg:102deg; --dur:9s; --size:5px; --glow:0 0 4px rgba(255,255,255,.3);"></div>
+        <div class="sat" style="--r:90px; --deg:183deg; --dur:10s; --size:6px; --glow:0 0 4px rgba(255,255,255,.3);"></div>
+        <div class="sat" style="--r:95px; --deg:246deg; --dur:12s; --size:7px; --glow:0 0 4px rgba(255,255,255,.3);"></div>
+
+        <div class="sat" style="--r:140px; --deg:20deg;  --dur:13s; --size:8px; --glow:0 0 6px rgba(255,255,255,.45);"></div>
+        <div class="sat" style="--r:155px; --deg:85deg;  --dur:10s; --size:9px; --glow:0 0 6px rgba(255,255,255,.45);"></div>
+        <div class="sat" style="--r:130px; --deg:157deg; --dur:14s; --size:8px; --glow:0 0 6px rgba(255,255,255,.45);"></div>
+        <div class="sat" style="--r:165px; --deg:218deg; --dur:11s; --size:9px; --glow:0 0 6px rgba(255,255,255,.45);"></div>
+        <div class="sat" style="--r:145px; --deg:300deg; --dur:12s; --size:8px; --glow:0 0 6px rgba(255,255,255,.45);"></div>
+
+        <div class="sat" style="--r:200px; --deg:12deg;  --dur:15s; --size:10px; --glow:0 0 10px rgba(255,255,255,.6);"></div>
+        <div class="sat" style="--r:220px; --deg:90deg;  --dur:11s; --size:11px; --glow:0 0 10px rgba(255,255,255,.6);"></div>
+        <div class="sat" style="--r:190px; --deg:170deg; --dur:13s; --size:10px; --glow:0 0 10px rgba(255,255,255,.6);"></div>
+        <div class="sat" style="--r:235px; --deg:250deg; --dur:14s; --size:11px; --glow:0 0 10px rgba(255,255,255,.6);"></div>
+        <div class="sat" style="--r:210px; --deg:330deg; --dur:12s; --size:10px; --glow:0 0 10px rgba(255,255,255,.6);"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<style>
+.orbits {
+  position: relative;
+  height: 46vh;
+}
+.orbit {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 999px;
+  transform: scale(var(--s));
+}
+.core {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 12px; height: 12px;
+  border-radius: 999px;
+  background: var(--brand-primary, #00E7D4);
+  box-shadow: 0 0 24px 6px rgba(0,231,212,.45);
+  transform: translate(-50%, -50%);
+  animation: corePulse 1.8s ease-in-out infinite;
+}
+.sat {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: var(--size, 8px);
+  height: var(--size, 8px);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--glow, 0 0 6px rgba(255,255,255,.4));
+  transform-origin: 50% 50%;
+  animation: irregularOrbit var(--dur, 12s) linear infinite;
+}
+@keyframes irregularOrbit {
+  0% { 
+    transform: translate(-50%, -50%) rotate(var(--deg,0deg)) 
+               translateX(var(--r,160px)) translateY(0px) scale(1);
+  }
+  25% { 
+    transform: translate(-50%, -50%) rotate(calc(var(--deg,0deg) + 90deg)) 
+               translateX(calc(var(--r,160px) * 1.3)) translateY(-20px) scale(1.1);
+  }
+  50% { 
+    transform: translate(-50%, -50%) rotate(calc(var(--deg,0deg) + 180deg)) 
+               translateX(calc(var(--r,160px) * 0.8)) translateY(15px) scale(0.9);
+  }
+  75% { 
+    transform: translate(-50%, -50%) rotate(calc(var(--deg,0deg) + 270deg)) 
+               translateX(calc(var(--r,160px) * 1.2)) translateY(-10px) scale(1.05);
+  }
+  100% { 
+    transform: translate(-50%, -50%) rotate(calc(var(--deg,0deg) + 360deg)) 
+               translateX(var(--r,160px)) translateY(0px) scale(1);
+  }
+}
+@keyframes corePulse {
+  0%,100% { transform: translate(-50%,-50%) scale(1); }
+  50%     { transform: translate(-50%,-50%) scale(1.2); }
+}
+</style>
+
+
+    <section class="section" data-view="/research">
+      <div class="container" style="max-width: 1000px; padding: 40px 0;">
+        <div class="head" style="text-align: center; margin-bottom: 40px;">
+          <h2 style="font-size: 48px; margin-bottom: 20px; background: linear-gradient(135deg, #fff, rgba(255,255,255,0.7)); -webkit-background-clip: text; background-clip: text; color: transparent;">About Us</h2>
+        </div>
+        
+        <div style="color: white; line-height: 1.75; font-size: 16px;">
+          <div style="margin-bottom: 25px;">
+            <p style="font-size: 18px; font-weight: 500; margin-bottom: 24px; color: rgba(255,255,255,0.95);">
+              <strong>4PEXONIC INC.</strong> is organized and operated to carry on scientific research in the public interest by aiding in the scientific education of college or university students.
+            </p>
+          </div>
+          
+          <div style="margin-bottom: 25px;">
+            <p style="margin-bottom: 20px; color: rgba(255,255,255,0.9);">
+              We conduct fundamental and applied researches to gain knowledge or understanding to determine the means by which a specific, recognized need may be met. Applied research includes investigations oriented to discovering new scientific knowledge that has specific objectives with respect to products, processes, or services.
+            </p>
+          </div>
+          
+          <div style="background: rgba(0, 231, 212, 0.05); border-left: 3px solid rgba(0, 231, 212, 0.5); padding: 24px; border-radius: 8px; margin-top: 25px;">
+            <h3 style="color: rgba(0, 231, 212, 0.9); font-size: 14px; margin-bottom: 16px; font-weight: 600; letter-spacing: 0.5px;">REGULATORY REFERENCES</h3>
+            <div style="font-size: 14px; color: rgba(255,255,255,0.8); line-height: 1.6;">
+              <p style="margin-bottom: 12px;"><strong>8 CFR 214.2(h)(19)(iii)(C)</strong> - Nonprofit Research Organization</p>
+              <p style="margin-bottom: 12px;"><strong>26 CFR 1.501(c)(3)-1(d)(5)(i)</strong> - Scientific Organization</p>
+              <p style="margin-bottom: 12px;"><strong>26 CFR 1.501(c)(3)-1(d)(5)(iii)(c)(1)</strong></p>
+              <p style="margin-bottom: 12px;"><strong>26 CFR 1.501(c)(3)-1(d)(3)</strong> - Educational Defined</p>
+              <p style="margin-bottom: 12px;"><strong>26 CFR 1.501(c)(3)-1(d)(2)</strong> - Charitable defined - advancement of education or science</p>
+            </div>
+          </div>
+          
+          <div style="background: rgba(255,255,255,0.05); padding: 24px; border-radius: 8px; margin-top: 16px; border: 1px solid rgba(255,255,255,0.1);">
+            <p style="font-size: 14px; color: rgba(255,255,255,0.85); margin: 0;">
+              <strong>8 CFR 214.2(h)(19)(iv)(B)</strong> - 4PEXONIC INC. Has been approved as a 501(c)(3) tax exempt 509(a)(2) publicly supported organization for research or educational purposes by the Internal Revenue Service.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" data-view="/labs">
+      <div class="container">
+        <div class="head"><h2>Our Purposes</h2></div>
+        <div class="grid-3">
+          <!-- Scientific Purpose -->
+          <div class="card reveal" style="text-align: center; position: relative;">
+            <div style="height: 120px; border-radius: 12px; background: linear-gradient(135deg, rgba(0,231,212,0.1), rgba(0,231,212,0.05)); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; border: 1px solid rgba(0,231,212,0.2);">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="rgba(0,231,212,0.8)">
+                <circle cx="12" cy="12" r="3" stroke="rgba(0,231,212,0.8)" stroke-width="1.5" fill="none"/>
+                <path d="M12 1v6m0 8v6m11-7h-6m-8 0H1m15.5-6.5l-4.24 4.24m-6.36 0L1.66 5.64m16.68 12.72l-4.24-4.24m-6.36 0L1.66 18.36" stroke="rgba(0,231,212,0.8)" stroke-width="1.5"/>
+                <circle cx="12" cy="12" r="1" fill="rgba(0,231,212,0.9)"/>
+                <circle cx="12" cy="5" r="0.5" fill="rgba(0,231,212,0.7)"/>
+                <circle cx="12" cy="19" r="0.5" fill="rgba(0,231,212,0.7)"/>
+                <circle cx="5" cy="12" r="0.5" fill="rgba(0,231,212,0.7)"/>
+                <circle cx="19" cy="12" r="0.5" fill="rgba(0,231,212,0.7)"/>
+              </svg>
+            </div>
+            <div style="position: absolute; top: 12px; right: 12px; background: rgba(0,231,212,0.9); color: #0c1220; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 600;">50%</div>
+            <h3 style="margin: 0 0 12px; color: rgba(0,231,212,0.9); font-size: 18px;">Scientific</h3>
+            <p style="color: rgba(255,255,255,0.8); font-size: 14px; line-height: 1.7; margin: 0;">
+              Offers supervision/training in the scientific education of college or university students. Obtains scientific information published in a treatise, thesis, trade publication, or in any other form available to the interested public.
+            </p>
+          </div>
+
+          <!-- Educational Purpose -->
+          <div class="card reveal" style="text-align: center; position: relative;">
+            <div style="height: 120px; border-radius: 12px; background: linear-gradient(135deg, rgba(124,157,255,0.1), rgba(124,157,255,0.05)); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; border: 1px solid rgba(124,157,255,0.2);">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                <path d="M12 3l8 5v6c0 5.55-3.84 10.74-9 12-5.16-1.26-9-6.45-9-12V8l8-5z" stroke="rgba(124,157,255,0.8)" stroke-width="1.5" fill="rgba(124,157,255,0.1)"/>
+                <path d="M8 12l3 3 5-6" stroke="rgba(124,157,255,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="12" cy="6" r="1" fill="rgba(124,157,255,0.9)"/>
+                <path d="M9 15l1.5 1.5L15 12" stroke="rgba(124,157,255,0.6)" stroke-width="1" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div style="position: absolute; top: 12px; right: 12px; background: rgba(124,157,255,0.9); color: #0c1220; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 600;">25%</div>
+            <h3 style="margin: 0 0 12px; color: rgba(124,157,255,0.9); font-size: 18px;">Educational</h3>
+            <p style="color: rgba(255,255,255,0.8); font-size: 14px; line-height: 1.7; margin: 0;">
+              We train people in the specific skills they will need to obtain employment in a particular industry or which provide work experience for youth or others who have no employment history.
+            </p>
+          </div>
+
+          <!-- Charitable Purpose -->
+          <div class="card reveal" style="text-align: center; position: relative;">
+            <div style="height: 120px; border-radius: 12px; background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03)); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.15);">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke="rgba(255,255,255,0.8)" stroke-width="1.5" fill="rgba(255,255,255,0.1)"/>
+                <circle cx="8.5" cy="8.5" r="1.5" fill="rgba(255,255,255,0.6)"/>
+                <circle cx="15.5" cy="8.5" r="1.5" fill="rgba(255,255,255,0.6)"/>
+                <path d="M12 12v4m-2-2h4" stroke="rgba(255,255,255,0.9)" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div style="position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.9); color: #0c1220; padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 600;">25%</div>
+            <h3 style="margin: 0 0 12px; color: rgba(255,255,255,0.9); font-size: 18px;">Charitable</h3>
+            <p style="color: rgba(255,255,255,0.8); font-size: 14px; line-height: 1.7; margin: 0;">
+              We are an organization concerned with civil society, philanthropy, and the nonprofit sector who seek to promote the practice of charitable giving and voluntarism through a variety of strategies including advocacy, disclosure, information exchange, and research.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-view="/publications">
+      <div class="container">
+
+        <div class="head"><h2>Activities</h2></div>
+        <div class="card reveal" style="padding:0;">
+          <div style="padding:12px 20px;">
+            <div style="display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);">
+              <div><div class="muted" style="font-size:13px;">2025 · Data Science in Healthcare Industry</div><div>San Diego College Free Data Science Classes Fall 2025 Aug 28 - Jan 17</div></div>
+              <a class="link" href="#">Public Charitable Service</a>
+            </div>
+            <div style="display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);">
+              <div><div class="muted" style="font-size:13px;">2024 · Biomedical Research</div><div>Precision Medicine Data Analytics for Advanced Cancer Research</div></div>
+              <a class="link" href="#">Public Charitable Service</a>
+            </div>
+            <div style="display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);">
+              <div><div class="muted" style="font-size:13px;">2023 · Educational Initiative</div><div>Comprehensive STEM Mentorship Program for International F-1 Students</div></div>
+              <a class="link" href="#">Public Charitable Service</a>
+            </div>
+            <div style="display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);">
+              <div><div class="muted" style="font-size:13px;">2022 · Digital Equity Campaign</div><div>Community Technology Access Initiative for Underserved Senior Citizens</div></div>
+              <a class="link" href="#">Public Charitable Service</a>
+            </div>
+            <div style="display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);">
+              <div><div class="muted" style="font-size:13px;">2022 · Academic Research</div><div>SDSU Collaborative Advanced Data Science Research Initiative</div></div>
+              <a class="link" href="#">Public Charitable Service</a>
+            </div>
+            <div style="display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);">
+              <div><div class="muted" style="font-size:13px;">2021 · Public Health Response</div><div>COVID-19 Emergency Data Analysis Support for Local Healthcare Systems</div></div>
+              <a class="link" href="#">Public Charitable Service</a>
+            </div>
+            <div style="display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);">
+              <div><div class="muted" style="font-size:13px;">2020 · Research Accessibility</div><div>Free Open Source Statistical Tools for Community Non-Profit Organizations</div></div>
+              <a class="link" href="#">Public Charitable Service</a>
+            </div>
+            <div style="display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);">
+              <div><div class="muted" style="font-size:13px;">2019 · Educational Technology</div><div>SDSU Campus Advanced Digital Learning Platform Enhancement Project</div></div>
+              <a class="link" href="#">Public Charitable Service</a>
+            </div>
+            <div style="display:flex;justify-content:space-between;gap:12px;padding:12px 0;">
+              <div><div class="muted" style="font-size:13px;">2019 · Academic Collaboration</div><div>Collaborative Multi-Institutional Research Consortium Development Initiative</div></div>
+              <a class="link" href="#">Public Charitable Service</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" data-view="/platforms">
+      <div class="container">
+
+        <div class="head"><h2>VolunteerMatch</h2></div>
+        <div class="card reveal" style="max-width: 700px; text-align: center; padding: 24px;">
+          <h3 style="margin-bottom: 16px; color: var(--brand-primary);">Join Our Mission Through Volunteer Opportunities</h3>
+          <p style="margin-bottom: 20px; line-height: 1.6;">Every position in our volunteer program plays a crucial role in advancing scientific research and innovation. Whether you're interested in data analysis, platform development, or research collaboration, these opportunities provide an excellent entry point into the rapidly growing field of scientific technology and healthcare research.</p>
+          <p class="muted" style="margin-bottom: 24px; font-size: 14px;">Gain hands-on experience with cutting-edge research methodologies, work alongside leading scientists, and contribute to meaningful projects that have real-world impact on patient outcomes and scientific discovery.</p>
+          <button class="cta" onclick="window.open('https://www.idealist.org/', '_blank')" style="background: var(--brand-primary); color: var(--brand-dark); padding: 12px 24px; border: none; border-radius: 12px; font-weight: 600; font-size: 16px; cursor: pointer; transition: all 0.3s ease;">
+            Check Out Opportunities on Idealist
+          </button>
+        </div>
+        <div class="marquee" style="margin-top: 32px;">
+          <div class="marquee-track">
+            <div class="card item"><h3>Computing Platform</h3><p class="muted">GPU Clusters · Containerization · Reproducible Workflows</p></div>
+            <div class="card item"><h3>Data Governance</h3><p class="muted">ETL/ELT · Metadata · Data Quality & Tracking</p></div>
+            <div class="card item"><h3>Knowledge Base</h3><p class="muted">Unified search and linking of literature/code/experimental records</p></div>
+            <div class="card item"><h3>Open Collaboration</h3><p class="muted">API · SDK · Data Sharing & Access Control</p></div>
+            <div class="card item"><h3>Clinical Integration</h3><p class="muted">System integration and compliance with hospitals/research centers</p></div>
+            <div class="card item"><h3>Computing Platform</h3><p class="muted">GPU Clusters · Containerization · Reproducible Workflows</p></div>
+            <div class="card item"><h3>Data Governance</h3><p class="muted">ETL/ELT · Metadata · Data Quality & Tracking</p></div>
+            <div class="card item"><h3>Knowledge Base</h3><p class="muted">Unified search and linking of literature/code/experimental records</p></div>
+            <div class="card item"><h3>Open Collaboration</h3><p class="muted">API · SDK · Data Sharing & Access Control</p></div>
+            <div class="card item"><h3>Clinical Integration</h3><p class="muted">System integration and compliance with hospitals/research centers</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-view="/people">
+      <div class="container">
+
+        <div class="head"><h2>Support Our Research</h2></div>
+        <div class="card reveal" style="max-width: 600px; text-align: center;">
+          <h3 style="margin-bottom: 16px; color: var(--brand-primary); text-align: center;">Help Advance Scientific Discovery</h3>
+          <p style="margin-bottom: 20px; line-height: 1.6;">Your generous contribution directly supports our cutting-edge research initiatives in gastrointestinal oncology, biostatistics, and clinical data science. Every donation helps us develop innovative solutions that improve patient outcomes and advance scientific understanding.</p>
+          <p class="muted" style="margin-bottom: 24px; font-size: 14px;">As a 501(c)(3) research organization, your donation may be tax-deductible. We are committed to using funds responsibly to maximize research impact and maintain the highest standards of scientific integrity.</p>
+          <button class="cta" onclick="window.open('https://www.paypal.com/US/fundraiser/charity/4705952', '_blank')" style="background: var(--brand-primary); color: var(--brand-dark); padding: 12px 24px; border: none; border-radius: 12px; font-weight: 600; font-size: 16px; cursor: pointer; transition: all 0.3s ease;">
+            Donate via PayPal Giving Fund
+          </button>
+          <p style="margin-top: 16px; font-size: 12px; color: var(--text-dim);">Secure donation processing through PayPal Giving Fund</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" data-view="/news">
+      <div class="container">
+
+        <div class="head"><h2>News & Insights</h2></div>
+        <div class="grid-3">
+          <article class="card reveal"><small class="muted">News · 2025-07-15</small><h3 style="margin:.4rem 0;">NIH R37/DoD-funded Multi-center Research Project Initiated</h3><a class="link" href="#">Read →</a></article>
+          <article class="card reveal"><small class="muted">Blog · 2025-06-20</small><h3 style="margin:.4rem 0;">APC Model Quick Start & Common Pitfalls</h3><a class="link" href="#">Read →</a></article>
+          <article class="card reveal"><small class="muted">Report · 2025-05-30</small><h3 style="margin:.4rem 0;">Symptomatic FIT Real-World Project Phase Summary</h3><a class="link" href="#">Read →</a></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-view="/careers">
+      <div class="container">
+
+        <div class="head"><h2>Career For You</h2></div>
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          <div class="card reveal"><h3>Research Data Analyst (R/SQL) · Mid-level</h3><ul class="muted"><li>Participate in cohort construction and statistical modeling</li><li>Generate analysis reports and visualizations</li><li>Collaborate with clinical teams</li></ul><button class="btn" style="margin-top:8px;">Apply</button><div style="text-align: center; margin-top: 8px; color: #ff4444; font-size: 13px;">Application portal for this position is currently closed</div></div>
+          <div class="card reveal"><h3>Frontend Platform Engineer (React) · Mid-level</h3><ul class="muted"><li>Visualization components and frontend architecture</li><li>Focus on performance and accessibility</li><li>Collaborate with design/data teams</li></ul><button class="btn" style="margin-top:8px;">Apply</button><div style="text-align: center; margin-top: 8px; color: #ff4444; font-size: 13px;">Application portal for this position is currently closed</div></div>
+          <div class="card reveal"><h3>Research Lead · Senior</h3><ul class="muted"><li>Lead cross-disciplinary research initiatives and strategic planning</li><li>Oversee research methodology and quality assurance protocols</li><li>Manage research partnerships and grant proposal development</li></ul><button class="btn" style="margin-top:8px;">Apply</button><div style="text-align: center; margin-top: 8px; color: #ff4444; font-size: 13px;">Application portal for this position is currently closed</div></div>
+          <div class="card reveal"><h3>Strategic Business Development Executive · Senior</h3><ul class="muted"><li>Drive strategic partnerships with pharmaceutical companies and research institutions</li><li>Develop and execute comprehensive go-to-market strategies for research solutions</li><li>Lead client relationship management and expand our research collaboration network</li></ul><div style="text-align: center; margin-top: 8px; padding: 8px 16px; background: var(--brand-primary); color: var(--brand-dark); border-radius: 8px; font-size: 14px; font-weight: 500;">Email your resume to admin@4pexonic.com</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" data-view="/contact">
+      <div class="container">
+
+        <div class="head"><h2>Contact Us</h2></div>
+        <div class="grid-2">
+          <div class="card reveal">
+            <p class="muted">Tell us your research direction and target timeline, and we will provide feasible solution recommendations within 24 hours.</p>
+            <ul style="padding-left:18px;">
+              <li>Address: 9920 Pacific Heights Blvd. Suite 150, San Diego, CA 92121</li>
+              <li>Phone: 619-940-6556</li>
+              <li>Email: admin@4pexonic.com</li>
+              <li>Working Hours: 9AM-5PM PDT</li>
+            </ul>
+          </div>
+          <form class="card reveal" onsubmit="event.preventDefault(); alert('Submission successful: We will contact you as soon as possible');">
+            <div class="grid-2" style="gap:12px;">
+              <input required placeholder="Name"     style="padding:12px;border-radius:12px;border:1px solid var(--border);background:#0b1630;color:#fff;">
+              <input placeholder="Organization/Company"        style="padding:12px;border-radius:12px;border:1px solid var(--border);background:#0b1630;color:#fff;">
+            </div>
+            <input required placeholder="Email"       style="margin-top:12px;padding:12px;border-radius:12px;border:1px solid var(--border);background:#0b1630;color:#fff; width:100%;">
+            <textarea rows="5" placeholder="Research topic, data and timeline"
+              style="margin-top:12px;padding:12px;border-radius:12px;border:1px solid var(--border);background:#0b1630;color:#fff;width:100%;"></textarea>
+            <button class="btn" style="margin-top:12px;">Submit</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" data-view="/credentials" style="padding-bottom: 40px;">
+  <div class="container">
+    <div class="head">
+      <h2>Our Employer Credentials</h2>
+    </div>
+    <div class="grid-2">
+      <div class="card reveal" style="padding:0;overflow:hidden;">
+        <img src="images/employer-cert.png" alt="Employer Certification" style="width:100%;height:auto;display:block;">
+      </div>
+      <div class="card reveal">
+        <p class="muted">
+          As a certified research employer, we comply with national and international standards,
+          ensuring our projects meet the highest levels of integrity, safety, and transparency.
+        </p>
+        <p class="muted">
+          Our employer status reflects our commitment to supporting research professionals,
+          maintaining fair workplace practices, and fostering innovation across disciplines.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+    <!-- Research Excellence Section -->
+    <section class="section" data-view="/" style="padding: 7px 0 30px 0; background: linear-gradient(180deg, rgba(11,22,48,0.7) 0%, rgba(11,22,48,1) 100%);">
+      <div class="container">
+        <div style="text-align: left; margin-bottom: 50px;">
+          <h2 style="font-weight: 700; font-size: 42px; margin-bottom: 16px; color: var(--text-main);">Our Research Excellence</h2>
+          <p style="color: var(--text-dim); font-size: 18px; max-width: 750px; margin: 0;">Driving innovation through collaborative research and engineering excellence</p>
+        </div>
+        
+        <!-- Statistics Grid -->
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 60px; margin-bottom: 60px; text-align: center;">
+          <div class="reveal">
+            <div class="font-display" data-count="420" style="font-size: 48px; font-weight: 700; color: var(--brand-primary); margin-bottom: 8px;">0</div>
+            <div style="color: var(--text-main); font-size: 16px; font-weight: 500; letter-spacing: 0.5px;">Research Excellence</div>
+          </div>
+          <div class="reveal">
+            <div class="font-display" data-count="60" style="font-size: 48px; font-weight: 700; color: var(--brand-accent); margin-bottom: 8px;">0</div>
+            <div style="color: var(--text-main); font-size: 16px; font-weight: 500; letter-spacing: 0.5px;">Industry Contribution</div>
+          </div>
+          <div class="reveal">
+            <div class="font-display" data-count="25" style="font-size: 48px; font-weight: 700; color: var(--brand-primary); margin-bottom: 8px;">0</div>
+            <div style="color: var(--text-main); font-size: 16px; font-weight: 500; letter-spacing: 0.5px;">Research Partners</div>
+          </div>
+          <div class="reveal">
+            <div class="font-display" data-count="1173" style="font-size: 48px; font-weight: 700; color: var(--brand-accent); margin-bottom: 8px;">0</div>
+            <div style="color: var(--text-main); font-size: 16px; font-weight: 500; letter-spacing: 0.5px;">In-progress Initiative</div>
+          </div>
+        </div>
+        
+        <!-- Research Areas -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;">
+          <div style="text-align: center; padding: 32px 24px; border: 1px solid rgba(0,231,212,0.2); border-radius: 16px; background: rgba(0,231,212,0.03); backdrop-filter: blur(20px);">
+            <div style="width: 64px; height: 64px; background: linear-gradient(135deg, rgba(0,231,212,0.2), rgba(0,231,212,0.1)); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;">
+              <div style="width: 32px; height: 32px; background: var(--brand-primary); border-radius: 50%; opacity: 0.8;"></div>
+            </div>
+            <h3 style="color: var(--brand-primary); font-size: 16px; font-weight: 700; margin-bottom: 12px; letter-spacing: 1px;">APPLIED RESEARCH</h3>
+            <p style="color: var(--text-dim); font-size: 15px; line-height: 1.6; margin: 0;">Data Science & Predictive Modeling</p>
+          </div>
+          <div style="text-align: center; padding: 32px 24px; border: 1px solid rgba(124,157,255,0.2); border-radius: 16px; background: rgba(124,157,255,0.03); backdrop-filter: blur(20px);">
+            <div style="width: 64px; height: 64px; background: linear-gradient(135deg, rgba(124,157,255,0.2), rgba(124,157,255,0.1)); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;">
+              <div style="width: 32px; height: 32px; background: var(--brand-accent); border-radius: 50%; opacity: 0.8;"></div>
+            </div>
+            <h3 style="color: var(--brand-accent); font-size: 16px; font-weight: 700; margin-bottom: 12px; letter-spacing: 1px;">FUNDAMENTAL</h3>
+            <p style="color: var(--text-dim); font-size: 15px; line-height: 1.6; margin: 0;">Scientific Computing & Analysis</p>
+          </div>
+          <div style="text-align: center; padding: 32px 24px; border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; background: rgba(255,255,255,0.02); backdrop-filter: blur(20px);">
+            <div style="width: 64px; height: 64px; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;">
+              <div style="width: 32px; height: 32px; background: rgba(255,255,255,0.3); border-radius: 50%;"></div>
+            </div>
+            <h3 style="color: var(--text-main); font-size: 16px; font-weight: 700; margin-bottom: 12px; letter-spacing: 1px;">PLATFORM ENGINEERING</h3>
+            <p style="color: var(--text-dim); font-size: 15px; line-height: 1.6; margin: 0;">Scalable Research Infrastructure</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Separating Part -->
+    <div style="height: 80px;"></div>
+
+    <!-- Partners and Sponsors Part -->
+    <section class="section" data-view="/" data-extra="partners" style="padding: 40px 0 40px 0;">
+      <div class="container">
+        <div class="muted" style="text-align:center; font-weight: 500;">Our Valued Partners and Sponsors</div>
+        <div class="marquee" style="margin-top:14px;">
+          <div class="marquee-track">
+            <div class="card" style="padding:8px 16px;">SDCC Education</div>
+            <div class="card" style="padding:8px 16px;">SDCC District</div>
+            <div class="card" style="padding:8px 16px;">UTS Laboratory</div>
+            <div class="card" style="padding:8px 16px;">NCDS Education System</div>
+            <div class="card" style="padding:8px 16px;">NIH Health</div>
+            <div class="card" style="padding:8px 16px;">DoD Designs</div>
+            <div class="card" style="padding:8px 16px;">NSF Networks</div>
+            <div class="card" style="padding:8px 16px;">Founden Equiptments</div>
+            <div class="card" style="padding:8px 16px;">UCSD Extension LDS</div>
+            <div class="card" style="padding:8px 16px;">VA MAT Agent</div>
+            <div class="card" style="padding:8px 16px;">CTS Foudations</div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="max-width: 1200px;">
+      <!-- Header Section: Company Branding -->
+      <div style="text-align: center; padding: 20px 0;">
+        <div style="display: inline-flex; align-items: center;">
+          <span class="logo-badge" aria-hidden="true">
+            <svg viewBox="0 0 64 64" width="20" height="20" fill="#fff">
+              <g transform="translate(32,32)">
+                <circle cx="0" cy="0" r="0.9"/>
+                <circle cx="-24" cy="0" r="0.9"/><circle cx="24" cy="0" r="0.9"/>
+                <circle cx="-20" cy="-4" r="0.9"/><circle cx="-16" cy="-8" r="0.9"/><circle cx="-12" cy="-12" r="0.9"/><circle cx="-8" cy="-16" r="0.9"/><circle cx="-4" cy="-20" r="0.9"/><circle cx="0" cy="-24" r="0.9"/>
+                <circle cx="20" cy="-4" r="0.9"/><circle cx="16" cy="-8" r="0.9"/><circle cx="12" cy="-12" r="0.9"/><circle cx="8" cy="-16" r="0.9"/><circle cx="4" cy="-20" r="0.9"/>
+                <circle cx="-20" cy="4" r="0.9"/><circle cx="-16" cy="8" r="0.9"/><circle cx="-12" cy="12" r="0.9"/><circle cx="-8" cy="16" r="0.9"/><circle cx="-4" cy="20" r="0.9"/><circle cx="0" cy="24" r="0.9"/>
+                <circle cx="20" cy="4" r="0.9"/><circle cx="16" cy="8" r="0.9"/><circle cx="12" cy="12" r="0.9"/><circle cx="8" cy="16" r="0.9"/><circle cx="4" cy="20" r="0.9"/>
+                <circle cx="-12" cy="0" r="0.9"/><circle cx="12" cy="0" r="0.9"/>
+                <circle cx="0" cy="-12" r="0.9"/><circle cx="0" cy="12" r="0.9"/>
+                <circle cx="-8" cy="-4" r="0.9"/><circle cx="-4" cy="-8" r="0.9"/><circle cx="8" cy="4" r="0.9"/><circle cx="4" cy="8" r="0.9"/>
+                <circle cx="-8" cy="4" r="0.9"/><circle cx="-4" cy="8" r="0.9"/><circle cx="8" cy="-4" r="0.9"/><circle cx="4" cy="-8" r="0.9"/>
+              </g>
+            </svg>
+          </span>
+          <div style="margin-left: 8px;">
+            <div class="brand font-display" style="letter-spacing:.12em; font-size: 14px; margin-bottom: 2px; font-weight: 600;">4PEXONIC.</div>
+            <div class="tag" style="color:var(--text-dim); letter-spacing:.18em; font-size:8px;">SCIENTIFIC &amp; FUNDAMENTAL RESEARCH</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Main Footer Content -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; padding-bottom: 50px; align-items: start;">
+        
+        <!-- Location & Map Section -->
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; overflow: hidden; padding: 0; aspect-ratio: 1; display: flex; flex-direction: column;">
+          <div style="padding: 18px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <h4 style="color: #fff; font-size: 16px; margin-bottom: 12px; font-weight: 600;">Our Location</h4>
+            <div style="color: rgba(255,255,255,0.8); line-height: 1.7;">
+              <p style="margin: 0; font-size: 13px; font-weight: 500;">9920 Pacific Heights Blvd. Suite 150</p>
+              <p style="margin: 4px 0 0; font-size: 13px;">San Diego, CA 92121</p>
+            </div>
+          </div>
+          <div style="flex: 1; background: linear-gradient(135deg, #1a2332, #0f1a30); position: relative; overflow: hidden;">
+            <!-- Map Roads and Streets -->
+            <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" viewBox="0 0 300 300">
+              <!-- Major Highways -->
+              <path d="M 0 90 Q 80 80 160 90 Q 240 100 300 110" stroke="rgba(255,255,255,0.25)" stroke-width="4" fill="none"/>
+              <path d="M 0 170 L 300 180" stroke="rgba(255,255,255,0.2)" stroke-width="3.5" fill="none"/>
+              
+              <!-- Main Roads -->
+              <path d="M 0 130 L 300 140" stroke="rgba(255,255,255,0.18)" stroke-width="2.5" fill="none"/>
+              <path d="M 0 210 L 300 200" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none"/>
+              <path d="M 120 0 L 125 300" stroke="rgba(255,255,255,0.18)" stroke-width="2.5" fill="none"/>
+              <path d="M 180 0 L 185 300" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none"/>
+              <path d="M 60 0 L 65 300" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" fill="none"/>
+              <path d="M 240 0 L 245 300" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" fill="none"/>
+              
+              <!-- Secondary Streets -->
+              <path d="M 0 50 L 300 60" stroke="rgba(255,255,255,0.1)" stroke-width="1" fill="none"/>
+              <path d="M 0 250 L 300 240" stroke="rgba(255,255,255,0.1)" stroke-width="1" fill="none"/>
+              
+              <!-- Business/Tech Parks -->
+              <rect x="100" y="110" width="22" height="20" fill="rgba(0,231,212,0.08)" rx="2" stroke="rgba(0,231,212,0.15)" stroke-width="0.5"/>
+              <rect x="140" y="100" width="26" height="25" fill="rgba(255,255,255,0.06)" rx="2"/>
+              <rect x="180" y="105" width="18" height="20" fill="rgba(255,255,255,0.08)" rx="1.5"/>
+              
+              <!-- Universities/Research -->
+              <rect x="40" y="180" width="35" height="30" fill="rgba(124,157,255,0.06)" rx="2" stroke="rgba(124,157,255,0.12)" stroke-width="0.5"/>
+              <rect x="160" y="185" width="30" height="25" fill="rgba(124,157,255,0.06)" rx="2" stroke="rgba(124,157,255,0.12)" stroke-width="0.5"/>
+              
+              <!-- Road Labels -->
+              <text x="8" y="100" fill="rgba(255,255,255,0.7)" font-size="9" font-family="Arial">I-5</text>
+              <text x="8" y="140" fill="rgba(255,255,255,0.7)" font-size="8" font-family="Arial">Pacific Heights Blvd</text>
+              <text x="8" y="180" fill="rgba(255,255,255,0.7)" font-size="8" font-family="Arial">Sorrento Valley Rd</text>
+              <text x="42" y="210" fill="rgba(124,157,255,0.6)" font-size="5" font-family="Arial">UCSD</text>
+              <text x="162" y="210" fill="rgba(124,157,255,0.6)" font-size="5" font-family="Arial">Tech Hub</text>
+            </svg>
+            
+            <!-- Location Marker -->
+            <div style="position: absolute; top: 50%; left: 42%; transform: translate(-50%, -50%); text-align: center;">
+              <div style="width: 8px; height: 8px; background: var(--brand-primary); border-radius: 50%; margin: 0 auto 4px; box-shadow: 0 0 12px rgba(0,231,212,0.8); border: 1.5px solid rgba(255,255,255,0.9);"></div>
+              <div style="color: rgba(255,255,255,0.9); font-size: 8px; font-weight: 600;">4PEXONIC</div>
+            </div>
+            
+            <!-- Area Labels -->
+            <div style="position: absolute; top: 8px; right: 8px; color: rgba(255,255,255,0.7); font-size: 10px; font-weight: 500;">Sorrento Valley</div>
+            <div style="position: absolute; bottom: 8px; left: 8px; color: rgba(255,255,255,0.7); font-size: 10px;">San Diego County</div>
+            <div style="position: absolute; top: 8px; left: 8px; color: rgba(255,255,255,0.7); font-size: 10px;">Tech Corridor</div>
+          </div>
+        </div>
+
+        <!-- Certifications Module -->
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; overflow: hidden; padding: 0; aspect-ratio: 1; display: flex; flex-direction: column;">
+          <div style="padding: 18px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <h4 style="color: #fff; font-size: 16px; margin-bottom: 12px; font-weight: 600;">Certifications</h4>
+          </div>
+          <div style="padding: 24px; flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px;">
+            <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; width: 100%; text-align: center;">
+              <div style="color: rgba(255,255,255,0.9); font-size: 14px; font-weight: 600; margin-bottom: 4px;">501(c)(3)</div>
+              <div style="color: rgba(255,255,255,0.8); font-size: 12px;">Tax-Exempt Status</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; width: 100%; text-align: center;">
+              <div style="color: rgba(255,255,255,0.9); font-size: 14px; font-weight: 600; margin-bottom: 4px;">E-Verify+</div>
+              <div style="color: rgba(255,255,255,0.8); font-size: 12px;">Employment Authorization</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; width: 100%; text-align: center;">
+              <div style="color: rgba(255,255,255,0.9); font-size: 14px; font-weight: 600; margin-bottom: 4px;">CFR Compliant</div>
+              <div style="color: rgba(255,255,255,0.8); font-size: 12px;">Federal Regulations</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Get in Touch Module -->
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; overflow: hidden; padding: 0; aspect-ratio: 1; display: flex; flex-direction: column;">
+          <div style="padding: 18px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <h4 style="color: #fff; font-size: 16px; margin-bottom: 12px; font-weight: 600;">Get in Touch</h4>
+          </div>
+          <div style="padding: 24px; flex: 1; display: flex; flex-direction: column; justify-content: center;">
+            <!-- Newsletter Signup -->
+            <div style="background: rgba(255,255,255,0.03); border-radius: 8px; padding: 18px;">
+              <h5 style="color: #fff; font-size: 13px; margin-bottom: 14px; font-weight: 600; text-align: center;">Stay Updated</h5>
+              <form onsubmit="event.preventDefault(); alert('Subscription Completed!');" style="display: flex; flex-direction: column; gap: 12px;">
+                <input placeholder="Enter your email..." style="padding: 12px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #fff; font-size: 12px; text-align: center;">
+                <button style="background: var(--brand-primary); color: #0c1220; border: none; padding: 12px; border-radius: 6px; font-weight: 600; font-size: 12px; cursor: pointer; transition: opacity 0.2s ease;">Subscribe</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      
+      <!-- Footer Bottom -->
+      <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; padding-bottom: 24px; text-align: center;">
+        <div style="color: rgba(255,255,255,0.5); font-size: 14px;">
+          © <span id="year"></span> 4PEXONIC INC. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const views = Array.from(document.querySelectorAll('[data-view]'));
+    const links = Array.from(document.querySelectorAll('.nav-links a'));
+    let counterEls = [];
+    
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold:.12 });
+    function revealNow(){
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    }
+    
+    function show(route) {
+      views.forEach(v => {
+        const match = v.getAttribute('data-view') === route || (route === '/' && v.getAttribute('data-view') === '/');
+        const extraHome = route === '/' && v.getAttribute('data-extra') === 'partners';
+        v.style.display = (match || extraHome) ? 'block' : 'none';
+      });
+      links.forEach(a => a.setAttribute('aria-current', a.dataset.route === route ? 'page' : 'false'));
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      revealNow();
+      restartCounters();
+    }
+    function parseHash(){ return location.hash.replace(/^#/, '') || '/'; }
+    function go(to){ location.hash = '#' + to; }
+    window.addEventListener('hashchange', () => show(parseHash()));
+    if(!location.hash){ location.hash = '#/'; }
+    show(parseHash());
+
+    function toggleDrawer(force){
+      const d = document.getElementById('drawer');
+      const open = force === undefined ? !d.classList.contains('open') : force;
+      d.classList.toggle('open', open);
+    }
+
+    function restartCounters(){
+      counterEls.forEach(c => cancelAnimationFrame(c._raf || 0));
+      counterEls = Array.from(document.querySelectorAll('[data-count]'));
+      counterEls.forEach(el=>{
+        const target = +el.dataset.count;
+        const start = performance.now();
+        const dur = 1000;
+        const step = (t)=>{
+          const p = Math.min(1, (t-start)/dur);
+          const e = 1 - Math.pow(1-p, 3);
+          el.textContent = Math.round(target * e);
+          if(p<1) el._raf = requestAnimationFrame(step);
+        };
+        el._raf = requestAnimationFrame(step);
+      });
+    }
+    restartCounters();
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
